@@ -3,29 +3,35 @@ import  { useState } from 'react';
 import styled from "styled-components";
 
 export const Signup= () => {
-    const [formData, setFormData] = useState({
-        username:'',
-        email:'',
-        password:'',
-      });
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
-      };
+const [username,setUsername]=useState(" ");
+const [email,setEmail]=useState(" ");
+const [password,setPassword]=useState(" ");
+    // const [formData, setFormData] = useState({
+    //     username:'',
+    //     email:'',
+    //     password:'',
+    //   });
+      // const handleInputChange = (e) => {
+      //   const { name, value } = e.target;
+      //   setFormData({
+      //     ...formData,
+      //     [name]: value,
+      //   });
+      // };
     
       const handleSubmit = async() => {
+          const payload={
+            username,email,password
+          }
        // e.preventDefault();
-       // console.log(formData)
+        console.log(payload)
        //console.log()
-       fetch(`https://wild-teal-drill-tam.cyclic.app/users/register`,{
+       fetch("https://notes-server-o8j5.onrender.com/users/register",{
         method:'POST',
         headers:{
             "Content-type":"application/json"
         },
-        body:JSON.stringify(formData)
+        body:JSON.stringify(payload)
      
        }).then(res=>res.json()).then(data=>console.log(data)).catch(err=>console.log(err))
 
@@ -38,23 +44,23 @@ export const Signup= () => {
     <input data-testid="user-name"
     type="text" 
     name="username"
-    value={formData.username} 
+    value={username} 
     placeholder="User Name"
-    onChange={handleInputChange}
+    onChange={(e)=>setUsername(e.target.value)}
     required/>
     <input  data-testid="user-email" 
       type="email"
       name="email"
        placeholder="Email" 
-       value={formData.email}
-       onChange={handleInputChange}
+       value={email}
+       onChange={(e)=>setEmail(e.target.value)}
        required/>
     <input  data-testid="user-password"
         type="password"
         placeholder="Password"
         name="password"
-        value={formData.password}
-        onChange={handleInputChange}
+        value={password}
+        onChange={(e)=>setPassword(e.target.value)}
         required/>
     <button  onClick={handleSubmit} >Register</button>
     </DIV>
